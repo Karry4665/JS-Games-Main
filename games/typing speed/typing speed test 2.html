@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Typing Speed Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #292F36;
+            --light: #F7FFF7;
+            --accent: #FFE66D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #292F36 0%, #1A1E23 100%);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            overflow-x: hidden;
+        }
+        
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 900;
+            font-size: 3.5rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        
+        .game-container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(78,205,196,0.1) 0%, rgba(255,107,107,0.05) 50%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .game-info {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .info-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .info-label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 0.3rem;
+        }
+        
+        .info-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        #wpm {
+            color: var(--primary);
+        }
+        
+        #accuracy {
+            color: var(--secondary);
+        }
+        
+        #time {
+            color: var(--accent);
+        }
+        
+        .text-display-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .text-display {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            min-height: 150px;
+            white-space: pre-wrap;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .text-to-type {
+            opacity: 0.7;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .typed-text-overlay {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            pointer-events: none;
+            z-index: 2;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        
+        .correct {
+            color: var(--secondary);
+            background-color: rgba(78, 205, 196, 0.1);
+        }
+        
+        .incorrect {
+            color: var(--primary);
+            background-color: rgba(255, 107, 107, 0.1);
+            text-decoration: underline;
+        }
+        
+        .current {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            position: relative;
+        }
+        
+        .current::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .input-area {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        
+        #typing-input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 1.2rem;
+            font-family: 'Roboto', sans-serif;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        #typing-input:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.3);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), #FF8E8E);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(1px);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: var(--light);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        .difficulty-selector {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .difficulty-btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.1);
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .difficulty-btn.active {
+            background: var(--secondary);
+            color: var(--dark);
+            font-weight: bold;
+        }
+        
+        .result-container {
+            display: none;
+            text-align: center;
+            margin-top: 2rem;
+            animation: fadeIn 0.5s forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .result-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .result-stat {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            min-width: 120px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary);
+            opacity: 0;
+            z-index: 10;
+            animation: confetti 3s ease-in-out forwards;
+        }
+        
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(500px) rotate(360deg); opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .game-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .result-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>ULTIMATE TYPING TEST</h1>
+    <p class="subtitle">Measure your typing speed and accuracy!</p>
+    
+    <div class="game-container">
+        <div class="game-header">
+            <div class="game-info">
+                <div class="info-box">
+                    <div class="info-label">WPM</div>
+                    <div class="info-value" id="wpm">0</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">ACCURACY</div>
+                    <div class="info-value" id="accuracy">100%</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">TIME</div>
+                    <div class="info-value" id="time">60</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="difficulty-selector">
+            <button class="difficulty-btn active" data-difficulty="easy">Easy</button>
+            <button class="difficulty-btn" data-difficulty="medium">Medium</button>
+            <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+        </div>
+        
+        <div class="text-display-container">
+            <div class="text-display">
+                <div class="text-to-type" id="text-to-type"></div>
+            </div>
+            <div class="typed-text-overlay" id="typed-text-overlay"></div>
+        </div>
+        
+        <div class="input-area">
+            <input type="text" id="typing-input" placeholder="Start typing here..." disabled>
+        </div>
+        
+        <div class="controls">
+            <button class="btn btn-primary" id="startBtn">START TEST</button>
+            <button class="btn btn-secondary" id="stopBtn" disabled>STOP TEST</button>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <h2 class="result-title">Test Completed!</h2>
+            <div class="result-stats">
+                <div class="result-stat">
+                    <div class="stat-value" id="final-wpm">0</div>
+                    <div class="stat-label">WPM</div>
+                </div>
+                <div class="result-stat">
+                    <div class="stat-value" id="final-accuracy">100%</div>
+                    <div class="stat-label">ACCURACY</div>
+                </div>
+                <div class="result-stat">
+                    <div class="stat-value" id="final-time">60s</div>
+                    <div class="stat-label">TIME</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="restartBtn">TRY AGAIN</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Game elements
+            const textToTypeElement = document.getElementById('text-to-type');
+            const typedTextOverlay = document.getElementById('typed-text-overlay');
+            const typingInput = document.getElementById('typing-input');
+            const wpmDisplay = document.getElementById('wpm');
+            const accuracyDisplay = document.getElementById('accuracy');
+            const timeDisplay = document.getElementById('time');
+            const startBtn = document.getElementById('startBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const restartBtn = document.getElementById('restartBtn');
+            const resultContainer = document.getElementById('result-container');
+            const finalWpmDisplay = document.getElementById('final-wpm');
+            const finalAccuracyDisplay = document.getElementById('final-accuracy');
+            const finalTimeDisplay = document.getElementById('final-time');
+            const difficultyBtns = document.querySelectorAll('.difficulty-btn');
+            
+            // Game variables
+            let timer;
+            let timeLeft = 60;
+            let gameActive = false;
+            let difficulty = 'easy';
+            let currentText = '';
+            let typedText = '';
+            let correctChars = 0;
+            let totalChars = 0;
+            let startTime;
+            let lastUpdateTime;
+            let wpm = 0;
+            let accuracy = 100;
+            
+            // Sample texts for different difficulty levels
+            const sampleTexts = {
+                easy: [
+                    "The quick brown fox jumps over the lazy dog. This sentence contains all the letters in the English alphabet.",
+                    "Learning to type quickly and accurately is an essential skill in today's digital world. Practice makes perfect.",
+                    "Typing is the process of writing or inputting text by pressing keys on a typewriter, computer keyboard, or touchscreen."
+                ],
+                medium: [
+                    "The ability to type without looking at the keyboard is called touch typing. The home row is the base position for fingers.",
+                    "Keyboarding skills are vital for many jobs today. Employers often look for candidates who can type at least 50 words per minute.",
+                    "Ergonomics is important when typing for long periods. Keep your wrists straight, elbows at 90 degrees, and feet flat on the floor."
+                ],
+                hard: [
+                    "The QWERTY keyboard layout was designed in the 1870s for mechanical typewriters to prevent jamming by separating commonly used letter pairs.",
+                    "According to a study by the University of Cambridge, the average typing speed is around 40 words per minute, while professional typists can exceed 75 WPM.",
+                    "The world record for typing speed is held by Barbara Blackburn, who maintained 150 WPM for 50 minutes and reached a peak speed of 212 WPM on a Dvorak simplified keyboard."
+                ]
+            };
+            
+            // Initialize game
+            function initGame() {
+                // Select random text based on difficulty
+                const texts = sampleTexts[difficulty];
+                currentText = texts[Math.floor(Math.random() * texts.length)];
+                textToTypeElement.textContent = currentText;
+                typedTextOverlay.textContent = '';
+                typedText = '';
+                correctChars = 0;
+                totalChars = 0;
+                wpm = 0;
+                accuracy = 100;
+                timeLeft = 60;
+                
+                // Update displays
+                wpmDisplay.textContent = '0';
+                accuracyDisplay.textContent = '100%';
+                timeDisplay.textContent = timeLeft;
+                timeDisplay.style.color = '';
+                timeDisplay.style.animation = '';
+                
+                // Clear input
+                typingInput.value = '';
+                typingInput.disabled = false;
+                typingInput.focus();
+                
+                // Hide results
+                resultContainer.style.display = 'none';
+                
+                // Start timer
+                startTime = Date.now();
+                lastUpdateTime = startTime;
+                timer = setInterval(updateGame, 100);
+            }
+            
+            // Update game state
+            function updateGame() {
+                const currentTime = Date.now();
+                
+                // Update WPM every 500ms
+                if (currentTime - lastUpdateTime >= 500) {
+                    updateWPM();
+                    lastUpdateTime = currentTime;
+                }
+                
+                // Update timer every second
+                if (currentTime - startTime >= 1000) {
+                    timeLeft--;
+                    timeDisplay.textContent = timeLeft;
+                    startTime = currentTime;
+                    
+                    if (timeLeft <= 10) {
+                        timeDisplay.style.color = '#FF6B6B';
+                        timeDisplay.style.animation = 'pulse 0.5s infinite';
+                    }
+                    
+                    if (timeLeft <= 0) {
+                        endGame();
+                    }
+                }
+            }
+            
+            // Calculate and update WPM
+            function updateWPM() {
+                const timeInMinutes = (60 - timeLeft) / 60 || 1/60;
+                const words = correctChars / 5; // Standard word is 5 characters
+                wpm = Math.round(words / timeInMinutes);
+                wpmDisplay.textContent = wpm;
+                
+                // Update accuracy
+                accuracy = totalChars > 0 ? Math.round((correctChars / totalChars) * 100) : 100;
+                accuracyDisplay.textContent = `${accuracy}%`;
+            }
+            
+            // Handle typing input
+            typingInput.addEventListener('input', (e) => {
+                const inputText = e.target.value;
+                const currentChar = inputText[inputText.length - 1];
+                
+                // Check if backspace was pressed
+                if (inputText.length < typedText.length) {
+                    typedText = typedText.slice(0, inputText.length);
+                    updateTypedTextDisplay();
+                    return;
+                }
+                
+                // Add new character to typed text
+                if (currentChar) {
+                    typedText += currentChar;
+                    totalChars++;
+                    
+                    // Check if character is correct
+                    if (currentChar === currentText[typedText.length - 1]) {
+                        correctChars++;
+                    }
+                    
+                    updateTypedTextDisplay();
+                    
+                    // Check if all text has been typed
+                    if (typedText.length === currentText.length) {
+                        endGame();
+                    }
+                }
+            });
+            
+            // Update the displayed typed text with formatting
+            function updateTypedTextDisplay() {
+                let html = '';
+                
+                for (let i = 0; i < typedText.length; i++) {
+                    const char = typedText[i];
+                    const originalChar = currentText[i];
+                    
+                    if (char === originalChar) {
+                        html += `<span class="correct">${char}</span>`;
+                    } else {
+                        html += `<span class="incorrect">${char}</span>`;
+                    }
+                }
+                
+                // Add current character marker
+                if (typedText.length < currentText.length) {
+                    const nextChar = currentText[typedText.length];
+                    html += `<span class="current">${nextChar}</span>`;
+                }
+                
+                typedTextOverlay.innerHTML = html;
+                
+                // Scroll to keep current character visible
+                const currentSpan = typedTextOverlay.querySelector('.current');
+                if (currentSpan) {
+                    currentSpan.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            }
+            
+            // Start game
+            function startGame() {
+                gameActive = true;
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+                initGame();
+            }
+            
+            // End game
+            function endGame() {
+                gameActive = false;
+                clearInterval(timer);
+                typingInput.disabled = true;
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+                
+                // Calculate final stats
+                updateWPM();
+                
+                // Show results
+                finalWpmDisplay.textContent = wpm;
+                finalAccuracyDisplay.textContent = `${accuracy}%`;
+                finalTimeDisplay.textContent = `${60 - timeLeft}s`;
+                resultContainer.style.display = 'block';
+                
+                // Add confetti for high scores
+                if (wpm >= 80) {
+                    createConfetti();
+                }
+            }
+            
+            // Create confetti
+            function createConfetti() {
+                for (let i = 0; i < 50; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = `${Math.random() * 100}vw`;
+                    confetti.style.backgroundColor = getRandomColor();
+                    confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3000);
+                }
+            }
+            
+            function getRandomColor() {
+                const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#FF8E8E', '#6BFFB8'];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+            
+            // Set difficulty
+            function setDifficulty(level) {
+                difficulty = level;
+                difficultyBtns.forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+            }
+            
+            // Event listeners
+            startBtn.addEventListener('click', startGame);
+            stopBtn.addEventListener('click', endGame);
+            restartBtn.addEventListener('click', startGame);
+            difficultyBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => setDifficulty(e.target.dataset.difficulty));
+            });
+            
+            // Add CSS for animations
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pulse {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(1.1); }
+                    100% { transform: scale(1); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" , content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird</title>
+    <link rel="stylesheet" href="flappybird.css">
+    <script src="flappybird.js"></script>
+
+</head>
+
+<body>
+    <script>
+        let bgm = new Audio("bgm.mp3");
+        bgm.loop = true;
+        bgm.volume = 0.3;
+
+        document.addEventListener("keydown", (e) => {
+            if (e.code === "Space") {
+                if (bgm.paused) {
+                    bgm.play().then(() => {
+                        console.log("BGM playing...");
+                    }).catch(err => {
+                        console.log("Error: ", err);
+                    });
+                }
+            }
+        });
+    </script>
+    <canvas id="board"></canvas>
+</body>
+
+</html>
