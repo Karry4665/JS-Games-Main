@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JS GAMES</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap 4 CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap 4 JS + jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/js/device.js"></script>
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- favicon -->
+  <link rel="shortcut icon" href="assets/images/controller-icon.png" type="image/x-icon">
+
+  <!-- FIrebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+</head>
+
+<body>
+
+  <!-- Header Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 py-3">
+    <div class="container-fluid">
+
+      <!-- Left: Logo -->
+      <a class="navbar-brand text-accent fw-bold" href="#">🎮 JS Game Hub</a>
+
+      <!-- Mobile Toggle -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Right: Nav Links + Search -->
+      <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
+        <ul class="navbar-nav align-items-center me-3">
+          <li class="nav-item"><a class="nav-link" href="#About">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#Games">Games</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experts">Experts</a></li>
+          <li class="nav-item"><a class="nav-link" href="#premium-section">Premium</a></li>
+          <!-- <li class="nav-item"><a class="nav-link" href="#">Rules</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About Us</a></li> -->
+          <li class="nav-item">
+            <a href="#" id="openAuthModal" class="nav-link">Signup</a>
+          </li>
+        </ul>
+
+        <!-- Search (aligned far right) -->
+        <div class="d-flex align-items-center">
+          <button id="searchToggle" class="btn btn-outline-accent me-2" type="button">
+            <i class="bi bi-search"></i>
+          </button>
+          <input id="gameSearch" class="form-control d-none" type="search" placeholder="Search games..." />
+        </div>
+      </div>
+    </div>
+  </nav><div class="container mt-3">
+    <div class="row" id="gameResults"></div>
+  </div>
+  <!-- Tagline Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 class="text-white">Play. Code. Repeat.</h1>
+      <p> Dive Into the World of JavaScript Games!</p>
+    </div>
+    <img class="hero-bg"
+      src="https://imgs.search.brave.com/cDfrrCUX_e6j3I79Y4SxqORf04m3A61cTYRuXaT5K6Y/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJzLmNvbS9p/bWFnZXMvZmVhdHVy/ZWQvZ2FtaW5nLWNv/bnNvbGVzLWZsZGQ2/NWllcmpqeDJsYWYu/anBn"
+      alt="games-wallpaper">
+  </div>
+
+
+  <!-- Welcome Section -->
+  <section id="About" class="welcome-section container my-5">
+    <div class="row align-items-center">
+      <!-- Image Left -->
+      <div class="col-md-6">
+        <img src="assets/images/playing-game.webp" class="img-fluid rounded shadow welcome-img"
+          alt="Welcome to JS Games">
+      </div>
+
+      <!-- Text Right -->
+      <div class="col-md-6 text-light welcome-text">
+        <h2 class="text-accent fw-bold">Welcome to JS Game Hub</h2>
+        <p class="lead mt-3">
+          Unleash your creativity and challenge your brain with our curated collection of JavaScript games. Whether
+          you're a gamer, a developer, or both – you're in the right place. Play games, explore the code, and level up
+          your skills!
+        </p>
+      </div>
+    </div>
+  </section>
+
+<section class="multiplayer">
+  <h3>
+    Play multiplayer games on any screen
+  </h3>
+  <p class="multi">Simply turn your favorite screen into a gaming console. Supported on:</p>
+  <div class="multiplayer-grid">
+    <div class="multiplayer-item">
+      <i class="bi bi-playstation">playstation</i>
+      </div>
+      <div class="multiplayer-item">
+        <i class="bi bi-xbox">Xbox</i>
+        </div>
+        <div class="multiplayer-item">
+          <i class="bi bi-discord">Discord</i>
+          </div>
+          <div class="multiplayer-item">
+            <i class="bi bi-android">Android</i>
+            </div>
+            </div>
+            </section>
+      </div>
+</section>
+  
+
+  <!-- Game Cards -->
+<div id="maingames" class="row">
+  <!-- Game Cards Section -->
+  <div class="container my-5">
+    <div class="row g-4">
+
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Quiz Game</h5>
+            <p class="card-text">Test your knowledge with challenging questions!</p>
+            <a href="https://thinkfast-deploy2.netlify.app/" class="btn btn-primary">Test the brain</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Snake Game</h5>
+            <p class="card-text">Eat, grow, and dodge in this classic snake game.</p>
+            <a href="/games/snake game/index.html" class="btn btn-primary">Play Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Tetris</h5>
+            <p class="card-text">Fit falling blocks to clear lines and score big!</p>
+            <a href="/games/tetris/index.html" class="btn btn-primary">Fit them Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Random Dice</h5>
+            <p class="card-text">Roll the dice and leave it up to luck.</p>
+            <a href="/games/Random Dice/index.html" class="btn btn-primary">Roll It</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Tic Tac Toe</h5>
+            <p class="card-text">Outsmart your opponent in this classic grid battle.</p>
+            <a href="/games/tic tac toe/index.html" class="btn btn-primary">Play Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Flappy Bird</h5>
+            <p class="card-text">Tap to fly and dodge the pipes, simple yet addictive.</p>
+            <a href="/games/flappy-bird-master/index.html" class="btn btn-primary">Start Flying</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Whac A Mole</h5>
+            <p class="card-text">Smash the moles before they disappear!</p>
+            <a href="/games/whac a mole/whac a mole final.html" class="btn btn-primary">Start Smashing</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Space Invaders</h5>
+            <p class="card-text">Defend Earth from waves of alien attackers.</p>
+            <a href="/games/space_invaders/index.html" class="btn btn-primary">Defend Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Minesweeper</h5>
+            <p class="card-text">Uncover the grid without hitting hidden mines!</p>
+            <a href="/games/minesweeper/index.html" class="btn btn-primary">Try It</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">2048</h5>
+            <p class="card-text">Swipe and merge tiles to reach the magic 2048.</p>
+            <a href="/games/2048/index.html" class="btn btn-primary">Play 2048</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Typing Speed Test</h5>
+            <p class="card-text">How fast can you type? Test your speed!</p>
+            <a href="games/typing speed/typing speed test 2.html" class="btn btn-primary">Start Typing</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Candy Crush</h5>
+            <p class="card-text">Match sweets in a tasty puzzle of strategy and fun.</p>
+            <a href="/games/Candy-Crush-Game/index.html" class="btn btn-primary">Start Matching</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Word Scramble</h5>
+            <p class="card-text">Unscramble the letters to find the hidden word.</p>
+            <a href="/games/Word Scramble Game/index.html" class="btn btn-primary">Unscramble</a>
+          </div>
+        </div>
+      </div>
+
+<div class="col-sm-3">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Towerblocks</h5>
+      <p class="card-text">Stack the blocks as high as you can without toppling!</p>
+      <a href="/games/Tower-Blocks/index.html" class="btn btn-primary">Stack Now</a>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Fruit Slicer</h5>
+      <p class="card-text">Slice and dice fruit like a ninja master!</p>
+      <a href="/games/Fruit-Slicer-Game/index.html" class="btn btn-primary">Slice It</a>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Ping Pong</h5>
+      <p class="card-text">Challenge yourself in a fast-paced pong battle!</p>
+      <a href="/games/Ping-Pong-Game/index.html" class="btn btn-primary">Play Now</a>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Breakout</h5>
+      <p class="card-text">Break all the bricks using the bouncing ball!</p>
+      <a href="/games/Breakout-Game/index.html" class="btn btn-primary">Break It</a>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Archery</h5>
+      <p class="card-text">Aim and shoot the arrows at moving targets.</p>
+      <a href="/games/Archery-Game/index.html" class="btn btn-primary">Shoot Now</a>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Hangman</h5>
+      <p class="card-text">Guess the word before the stick figure is hanged!</p>
+      <a href="/games/Hangman-game/index.html" class="btn btn-primary">Guess Now</a>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Memory Card</h5>
+      <p class="card-text">Test your memory by finding matching pairs.</p>
+      <a href="/games/Memory-Card-Game/index.html" class="btn btn-primary">Match Now</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Word Guessing</h5>
+            <p class="card-text">Guess the word letter by letter before it's too late!</p>
+            <a href="/games/word guessing/index.html" class="btn btn-primary">Start Guessing</a>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Auth Modal -->
+    <div id="authOverlay" class="auth-overlay d-none">
+      <div class="auth-modal">
+        <button id="closeAuthModal" class="close-btn">&times;</button>
+        <h2 id="authModalTitle" class="auth-model-title">Login</h2>
+
+        <div id="signupFields" class="d-none">
+          <input type="text" id="firstName" placeholder="First Name" />
+          <input type="text" id="lastName" placeholder="Last Name" />
+        </div>
+
+        <input type="email" id="email" placeholder="Email" />
+
+        <div class="password-wrapper">
+          <input type="password" id="password" placeholder="Password" />
+          <i class="bi bi-eye-slash" id="togglePassword"></i>
+        </div>
+
+        <div id="confirmPasswordWrapper" class="d-none password-wrapper">
+          <input type="password" id="confirmPassword" placeholder="Confirm Password" />
+          <i class="bi bi-eye-slash" id="toggleConfirmPassword"></i>
+        </div>
+
+        <div class="auth-actions">
+          <button id="loginBtn" class="btn-accent btn">Login</button>
+          <button id="signupBtn" class=" btn btn-accent">Sign Up</button>
+        </div>
+
+        <p class="text-small">Forgot password? <a href="#" class=" link-underline link-underline-opacity-50">Click
+            here</a></p>
+        <p id="auth-message"></p>
+      </div>
+    </div>
+
+    <section id="infinte_slider" class="infinte_slider">
+      <div class="slider-wrapper">
+        <div class="slider-row">
+          <div class="scroll-track" id="track1"></div>
+        </div>
+        <div class="slider-row">
+          <div class="scroll-track" id="track2"></div>
+        </div>
+        <div class="slider-row">
+          <div class="scroll-track" id="track3"></div>
+        </div>
+      </div>
+
+      <script>
+        const mediaSets = {
+          track1: [
+            { type: 'img', src: 'https://img.youtube.com/vi/L_UPHsGR6fM/maxresdefault.jpg', link: 'https://youtu.be/L_UPHsGR6fM?si=IvDjdGr8qRtLeHme' },
+
+            { type: 'img', src: 'https://img.youtube.com/vi/SIpyhJGNwGo/maxresdefault.jpg', link: 'https://youtu.be/SIpyhJGNwGo?si=GOACwyJYOoaNUK3g' },
+
+
+            { type: 'img', src: 'https://img.youtube.com/vi/bOEb9eq2vRU/maxresdefault.jpg', link: 'https://youtu.be/bOEb9eq2vRU?si=fDNUyOTq90oirXJv' },
+
+            { type: 'img', src: 'https://img.youtube.com/vi/-YQ2orY4yyg/maxresdefault.jpg', link: 'https://youtu.be/-YQ2orY4yyg?si=tY4gZHVphePh9ZtD' },
+            { type: 'img', src: 'https://img.youtube.com/vi/B13xyZeHdlo/maxresdefault.jpg', link: 'https://youtu.be/B13xyZeHdlo?si=4Q4Q0ZRySMpniZyY' }
+          ],
+          track2: [
+            { type: 'img', src: 'https://img.youtube.com/vi/HzvpOtyJYGs/maxresdefault.jpg', link: 'https://youtu.be/HzvpOtyJYGs?si=csfDB4ivLzGb6b7v' },
+
+            { type: 'img', src: 'https://img.youtube.com/vi/UFGQdL0vwmY/maxresdefault.jpg', link: 'https://www.youtube.com/live/UFGQdL0vwmY?si=Olh_b3_WjRNcVKFP' },
+            { type: 'img', src: 'https://img.youtube.com/vi/wnNGzMn5csQ/maxresdefault.jpg', link: 'https://youtu.be/wnNGzMn5csQ?si=MD7EMHa82CsRSn2k' },
+
+            { type: 'img', src: 'https://img.youtube.com/vi/S6f6wWbvQSk/maxresdefault.jpg', link: 'https://youtu.be/S6f6wWbvQSk?si=dTMkRaDnfDsz2LCF' }
+          ],
+          track3: [
+            { type: 'img', src: 'https://img.youtube.com/vi/CElbYjc_5ic/maxresdefault.jpg', link: 'https://youtu.be/CElbYjc_5ic?si=9j1dTX03O1vkuJ6W' },
+
+            { type: 'img', src: 'https://img.youtube.com/vi/Bwye0hbbRWU/maxresdefault.jpg', link: 'https://youtu.be/S6f6wWbvQSk?si=dTMkRaDnfDsz2LCF' },
+            { type: 'img', src: 'https://img.youtube.com/vi/zIcI8Izyim8/maxresdefault.jpg', link: 'https://youtu.be/zIcI8Izyim8?si=ULCvQxmSy1wvS8e_' },
+
+            { type: 'img', src: 'https://img.youtube.com/vi/fxk9posx6Z8/maxresdefault.jpg', link: 'https://youtu.be/video11' },
+
+            { type: 'img', src: 'https://img.youtube.com/vi/UFGQdL0vwmY/maxresdefault.jpg', link: 'https://youtu.be/video12' }
+          ]
+        };
+
+        function createTrack(trackId, speedSeconds = 10) {
+          const track = document.getElementById(trackId);
+          const mediaItems = mediaSets[trackId];
+
+          function createMediaElement(item) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'media-item-wrapper';
+
+            const a = document.createElement('a');
+            a.href = item.link;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+
+            if (item.type === 'img') {
+              const img = document.createElement('img');
+              img.src = item.src;
+              img.className = 'media-item';
+              a.appendChild(img);
+            } else if (item.type === 'video') {
+              const video = document.createElement('video');
+              video.src = item.src;
+              video.className = 'media-item';
+              video.autoplay = true;
+              video.loop = true;
+              video.muted = true;
+              a.appendChild(video);
+            }
+
+            wrapper.appendChild(a);
+            return wrapper;
+          }
+
+          // Append original and its clone
+          for (let i = 0; i < 2; i++) {
+            mediaItems.forEach(item => {
+              const element = createMediaElement(item);
+              track.appendChild(element);
+            });
+          }
+
+          track.style.animationDuration = `${speedSeconds}s`;
+
+          // Pause on hover
+          track.querySelectorAll('.media-item').forEach(item => {
+            item.addEventListener('mouseenter', () => track.classList.add('paused'));
+            item.addEventListener('mouseleave', () => track.classList.remove('paused'));
+          });
+        }
+
+        createTrack('track1', 30);
+        createTrack('track2', 35);
+        createTrack('track3', 40);
+      </script>
+    </section>
+
+    <section id="Games" class="Games-section w-75">
+      <h2>Games for every mood and every group</h2>
+      <p>You will find over 15+ games in our library - from racing, sports, co-op, puzzle, quiz games and many more!
+      </p>
+      <p> The games come from Steam, Playstation, Xbox, Switch, AirConsole and our beloved developer community.</p>
+      <button class="btn btn-accent browse-games-btn">Browse Games</button>
+    </section>
+    
+    <section class="games_infinite_slider">
+      <div class="slider-wrapper">
+        <div class="slider-row">
+          <div class="scroll-track" id="gameTrack1"></div>
+        </div>
+        <div class="slider-row">
+          <div class="scroll-track" id="gameTrack2"></div>
+        </div>
+        <div class="slider-row">
+          <div class="scroll-track" id="gameTrack3"></div>
+        </div>
+      </div>
+
+      <script>
+        const gameMediaSets = {
+  gameTrack1: [
+    { title: 'Tetris', src: './assets/images/tetris.jpeg', link: '/games/tetris/index.html' },
+
+    { title: 'Tic Tac Toe', src: './assets/images/tic tac toe.svg', link: '/games/tic tac toe/index.html' },
+    
+    { title: 'Towerblock', src: './assets/images/towerblock.jpeg', link: '/games/Tower-Blocks/index.html' },
+    
+    { title: 'Space Game', src: './assets/images/space.jpeg', link: '/games/space_invaders/index.html' },
+    
+    { title: 'Guess the Word', src: './assets/images/guess.png', link: '/games/word guessing/index.html' },
+
+    { title: 'Guess the number', src: './assets/images/guess.png', link: '/games/Guess my number/index.html' },
+    
+    { title: 'Quiz Game', src: './assets/images/quiz.jpeg', link: 'https://thinkfast-deploy2.netlify.app/' },
+    
+    { title: 'hangman', src: './assets/images/hangman.jpeg', link: '/games/Hangman-Game/index.html' },
+    
+    { title: 'Fruit slicer', src: './assets/images/fruitslicer.jpeg', link: '/games/Fruit-Slicer-Game/index.html' },
+  ],
+  gameTrack2: [
+    
+  { title: 'Whac-A-Mole', src: './assets/images/whac a mole.jpeg', link: '/games/whac a mole/whac a mole final.html' },
+    
+  { title: 'Snake Game', src: './assets/images/snake.png', link: '/games/snake game/index.html' },
+    
+  { title: 'breakout', src: './assets/images/breakout.jpeg', link: '/games/Breakout-Game/index.html' },
+    
+  { title: 'Minesweeper', src: './assets/images/mines.jpeg', link: '/games/minesweeper/index.html' },
+  
+  { title: 'Memory card game', src: './assets/images/card memory.jpeg', link: '/games/Memory-Card-Game/index.html' },
+    
+  { title: '2048', src: './assets/images/2048.png', link: '/games/2048/index.html' }
+  ],
+  gameTrack3: [
+    { title: 'Typing Speed Test', src: './assets/images/typing.jpeg', link: 'games/typing speed/typing speed test 2.html' },
+    
+    { title: 'archery', src: './assets/images/archery.png', link: '/games/Archery-Game/index.html' },
+    
+    { title: 'Candy Crush', src: './assets/images/candy.jpeg', link: '/games/Candy-Crush-Game/index.html' },
+    
+    { title: 'Flappy Bird', src: './assets/images/flappy.png', link: '/games/flappy-bird-master/index.html' },
+    
+    { title: 'Dice Roller', src: './assets/images/dice.jpeg', link: '/games/Random Dice/index.html' },
+    
+    { title: 'Ping pong', src: './assets/images/ping.png', link: '/games/Ping-Pong-Game/index.html' },
+    
+    { title: 'Word Scramble', src: './assets/images/scramble.jpeg', link: '/games/Word Scramble Game/index.html' }
+  ]
+};
+  const allGames = Object.values(gameMediaSets).flat();
+
+  const searchInput = document.getElementById('gameSearch');
+  const resultsContainer = document.getElementById('gameResults');
+  const toggleSearchBtn = document.getElementById('searchToggle');
+
+  // 🔁 Toggle search input visibility
+  toggleSearchBtn.addEventListener('click', () => {
+    searchInput.classList.toggle('d-none');
+
+    if (!searchInput.classList.contains('d-none')) {
+      searchInput.focus();
+    } else {
+      searchInput.value = '';
+      resultsContainer.innerHTML = '';
+    }
+  });
+
+  // 🔍 Listen to search input
+  searchInput.addEventListener('input', function () {
+    renderMatchingCards(this.value);
+  });
+
+  // 🧠 Render matching cards
+  function renderMatchingCards(query) {
+  resultsContainer.innerHTML = '';
+
+  if (query.trim() === '') return;
+
+  const filtered = allGames.filter(game =>
+    game.title.toLowerCase().includes(query.toLowerCase())
+  );
+
+  if (filtered.length === 0) {
+    resultsContainer.innerHTML = '<p class="text-muted">No matching games found.</p>';
+    return;
+  }
+
+  filtered.forEach(game => {
+    const card = document.createElement('div');
+    card.className = 'col-sm-4 col-md-3 mb-3';
+    card.innerHTML = `
+      <div class="card h-100">
+        <a href="${game.link}"> <!-- 🔁 opens in same tab now -->
+          <img src="${game.src}" class="card-img-top" alt="${game.title}">
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">${game.title}</h5>
+        </div>
+      </div>
+    `;
+    resultsContainer.appendChild(card);
+  });
+}
+
+
+  // 🎮 Create animated game media tracks
+  function createGameTrack(trackId, speedSeconds = 30) {
+    const track = document.getElementById(trackId);
+    const mediaItems = gameMediaSets[trackId];
+
+    function createMediaElement(item) {
+      const a = document.createElement('a');
+      a.href = item.link;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+
+      const img = document.createElement('img');
+      img.src = item.src;
+      img.className = 'media-item';
+
+      a.appendChild(img);
+      return a;
+    }
+
+    for (let i = 0; i < 2; i++) {
+      mediaItems.forEach(item => {
+        const element = createMediaElement(item);
+        track.appendChild(element);
+      });
+    }
+
+    track.style.animationDuration = `${speedSeconds}s`;
+
+    track.querySelectorAll('.media-item').forEach(item => {
+      item.addEventListener('mouseenter', () => track.classList.add('paused'));
+      item.addEventListener('mouseleave', () => track.classList.remove('paused'));
+    });
+  }
+
+  // 🚀 Initialize tracks
+  createGameTrack('gameTrack1', 25);
+  createGameTrack('gameTrack2', 30);
+  createGameTrack('gameTrack3', 35);
+</script>
+
+
+    </section>
+
+    <!-- Premium JS games section -->
+    <section id="premium-section" class="premium-section col-xs-12 w-100">
+      <div class="container text-center">
+        <!-- Title -->
+        <h2 class="mb-3 text-accent display-4 fw-bold">JS GAMES Premium Benefits</h2>
+        <!-- Description -->
+        <p class="mb-5 fs-5 text-white">Subscribing to JS Games Premium will give you and everyone playing with you the following features:</p>
+    
+        <!-- Cards Row -->
+        <div class="card-container w-100">
+    
+          <!-- Card -->
+          <div class="">
+            <div class="premium-card ">
+              <i class="bi bi-controller icon"></i>
+              <h6 class="mt-3">All games unlocked</h6>
+            </div>
+          </div>
+    
+          <div class="">
+            <div class="premium-card">
+              <i class="bi bi-people-fill icon"></i>
+              <h6 class="mt-3">Unlimited Players</h6>
+            </div>
+          </div>
+    
+          <div class="">
+            <div class="premium-card">
+              <i class="bi bi-pause-circle icon"></i>
+              <h6 class="mt-3">No ad breaks</h6>
+            </div>
+          </div>
+    
+          <div class="">
+            <div class="premium-card">
+              <i class="bi bi-stars icon"></i>
+              <h6 class="mt-3">Unique skins & levels</h6>
+            </div>
+          </div>
+    
+          
+    
+        </div>
+        <button class="btn btn-accent w-25" style="margin: 40px 0; padding: 20px 10px; font-size: 32px; font-weight: 500; border-radius: 20px; margin-top: 70px;">Buy Now !</button>
+      </div>
+    </section>
+
+    <section id="experts" class="experts">
+      <h1 class="text-accent">🎮 Gamer Hall of Fame 👑</h1>
+      <p class="experts-tagline">⚡ Not All Heroes Wear Capes. Some Game Their Way to Glory 🎮🏆</p>
+   <div class="expert-card-container">
+    <div class="card expert-card">
+      <img class="expert-img" src="assets/images/experts/karan.jpg" alt="">
+   <h6>Karan Mehta</h4>
+          <p>Sweet Swipe Master 🍭✨</p>
+      </div>
+  
+      <div class="card expert-card">
+        <img class="expert-img" src="assets/images/experts/navin-crop.jpg" alt="">
+     <h6>Navin Meghval </h4>
+            <p>🎮Full-Time Mode: ON 🔥</p>
+        </div>
+  
+  
+        <div class="card expert-card">
+          <img class="expert-img" src="assets/images/experts/ansh.jpg" alt="">
+       <h6>Anash Mirza</h4>
+              <p>The Brain Behind the Moves 🧠🕵️‍♂️♟️</p>
+          </div>
+  
+          <div class="card expert-card">
+            <img class="expert-img" src="assets/images/experts/zaid-crop.jpg" alt="">
+         <h6>Zaid Shaikh</h4>
+                <p>Arcade Legend in Action 👾🚀🔥</p>
+            </div>
+  
+            <div class="card expert-card">
+              <img class="expert-img" src="assets/images/experts/harsh-crop.jpg" alt="">
+           <h6>Harsh Sharma</h4>
+                  <p>Classic Console Crusher 🎮📻🚀</p>
+              </div>
+  
+  
+   </div>
+
+    </section>
+
+    
+    <section id="FAQs" class="FAQ">
+      <!-- FAQ Section with Full-Width Cards -->
+<div class="w-100 py-5 px-2">
+  <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+  <div class="accordion w-100" id="faqTable">
+
+    <!-- FAQ Item 1 -->
+    <div class="cards border-0 w-100">
+      <div class="card-header text-white" id="faqHeading1">
+        <h2 class="mb-0">
+          <button class="btn btn-link text-white w-100 text-left" type="button" data-toggle="collapse"
+            data-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+            ❓ How do I install the app?
+          </button>
+        </h2>
+      </div>
+      <div id="faqCollapse1" class="collapse" aria-labelledby="faqHeading1" data-parent="#faqTable">
+        <div class="card-body w-100">
+          You can install the app by downloading it from our official website or app store and following the installation guide.
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Item 2 -->
+    <div class="cards border-0 w-100">
+      <div class="card-header text-white" id="faqHeading2">
+        <h2 class="mb-0">
+          <button class="btn btn-link text-white w-100 text-left" type="button" data-toggle="collapse"
+            data-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+            ❓ What should I do if the app doesn't install?
+          </button>
+        </h2>
+      </div>
+      <div id="faqCollapse2" class="collapse" aria-labelledby="faqHeading2" data-parent="#faqTable">
+        <div class="card-body w-100">
+          Make sure your device meets the minimum requirements. If problems persist, please contact support.
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Item 3 -->
+    <div class="cards border-0 w-100">
+      <div class="card-header text-white" id="faqHeading3">
+        <h2 class="mb-0">
+          <button class="btn btn-link text-white w-100 text-left" type="button" data-toggle="collapse"
+            data-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+            ❓ Why is the contact form not working?
+          </button>
+        </h2>
+      </div>
+      <div id="faqCollapse3" class="collapse" aria-labelledby="faqHeading3" data-parent="#faqTable">
+        <div class="card-body w-90">
+          Sometimes browser extensions or poor connectivity may cause this. Try refreshing or contacting our support.
+        </div>
+      </div>
+    </div>
+    <!-- FAQ Item 4 -->
+    <div class="cards border-0 w-100">
+      <div class="card-header text-white" id="faqHeading4">
+        <h2 class="mb-0">
+          <button class="btn btn-link text-white w-100 text-left" type="button" data-toggle="collapse"
+            data-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+            ❓ Why is the games are not opening in phone?
+          </button>
+        </h2>
+      </div>
+      <div id="faqCollapse4" class="collapse" aria-labelledby="faqHeading4" data-parent="#faqTable">
+        <div class="card-body w-90">
+          Sometimes browser extensions or poor connectivity may cause this. Try refreshing or contacting our support.
+        </div>
+      </div>
+    </div>
+    <!-- FAQ Item 5 -->
+    <div class="cards border-0 w-100">
+      <div class="card-header text-white" id="faqHeading5">
+        <h2 class="mb-0">
+          <button class="btn btn-link text-white w-100 text-left" type="button" data-toggle="collapse"
+            data-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
+            ❓ Why is the console controllers not working?
+          </button>
+        </h2>
+      </div>
+      <div id="faqCollapse5" class="collapse" aria-labelledby="faqHeading5" data-parent="#faqTable">
+        <div class="card-body w-90">
+          Sometimes browser extensions or poor connectivity may cause this. Try refreshing or contacting our support.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+    </section>
+
+    <!-- footer goes here -->
+
+   <!-- Add this in your HTML file -->
+<footer class="bg-dark text-light pt-5 pb-4">
+  <div class="container">
+    <div class="row">
+
+      <!-- Info Column -->
+      <div class="col-md-3 mb-4">
+        <h5 class="text-uppercase fw-bold mb-3 text-accent">Info</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-light text-decoration-none">Company</a></li>
+        </ul>
+      </div>
+
+      <!-- Support Column -->
+      <div class="col-md-3 mb-4">
+        <h5 class="text-uppercase fw-bold mb-3 text-accent">Support</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-light text-decoration-none">Help</a></li>
+          <li><a href="#" class="text-light text-decoration-none">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- More Column -->
+      <div class="col-md-3 mb-4">
+        <h5 class="text-uppercase fw-bold mb-3 text-accent">More</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-light text-decoration-none">Know us</a></li>
+          <li><a href="#" class="text-light text-decoration-none">Swag Shop</a></li>
+        </ul>
+      </div>
+
+      <!-- Social Media Column -->
+      <div class="col-md-3 mb-4">
+        <h5 class="text-uppercase fw-bold mb-3 text-accent">Social Media</h5>
+        <div class="d-flex gap-3">
+          <a href="https://www.instagram.com/anshbegmirza/" class="text-light fs-4"><i class="bi bi-instagram"></i></a>
+          <a href="https://x.com/anshbegmirza" class="text-light fs-4"><i class="bi bi-facebook"></i></a>
+          <a href="https://x.com/anshbegmirza" class="text-light fs-4"><i class="bi bi-twitter"></i></a>
+          <a href="https://x.com/anshbegmirza" class="text-light fs-4"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Text -->
+    <div class="text-center mt-4 border-top pt-3 small">
+      <p class="mb-1">Copyright © Cyborg Media, 2025.</p>
+      <p class="mb-0">This site uses cookies. <a href="#" class="text-decoration-underline text-light">See privacy policy</a>.</p>
+    </div>
+  </div>
+</footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script defer src="assets/js/script.js"></script>
+    <script defer src="assets/js/auth-service.js"></script>
+</body>
+
+</html>
